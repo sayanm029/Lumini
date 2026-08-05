@@ -29,7 +29,26 @@ inline instruction_t encode_instruction(decoded_instruction_t i);
 // Function used to decode / unpack the instruction
 inline decoded_instruction_t decode_instruction(instruction_t i);
 
+
+/* 
+* Grouping of opcodes:
+* Opcodes per group: 16
+* current groups: 8
+* 1. System, 
+* 2. Memory, 
+* 3. Signed Arithmetic, 
+* 4. Unsigned Arithmetic, 
+* 5. Floating-Point Arithmetic, 
+* 6. Bitwise
+* 7. Special
+* 8. Jump,Branching & Subroutine.
+*/
+
+// OpCodes
 typedef enum {
+
+    // ---------- 1. System ----------
+
     /*
     * job: `Do nothing`.
     */
@@ -48,6 +67,9 @@ typedef enum {
     */
     OP_SYS      = 2U,
 
+    // ---------- 2. Memory ----------
+
+
     /*
     * Load Data.
     * `rd` used as target register index.
@@ -55,7 +77,7 @@ typedef enum {
     * `rb` specifies bytes. Maximum: 8
     * job: `Load data from memory`
     */
-    OP_LD       = 3U,
+    OP_LD       = 16U,
 
     /*
     * Store Data.
@@ -64,7 +86,7 @@ typedef enum {
     * `rb` specifies bytes. Maximum: 8
     * job: `Store data in memory.`
     */
-    OP_SD       = 4U,
+    OP_SD       = 17U,
 
     /*
     * Load Data Immidiate.
@@ -72,7 +94,7 @@ typedef enum {
     * `ra & rb` used as immidiate.
     * job: `rd =(ra << 8) | rb;`
     */
-    OP_LDI      = 5U,
+    OP_LDI      = 18U,
 
     /*
     * Copy Register.
@@ -80,7 +102,9 @@ typedef enum {
     * `ra` used as source register index. 
     * `rb unused`
     */
-    OP_CR       = 6U,
+    OP_CR       = 19U,
+
+    // ---------- 3. Signed Arithmetic ----------
 
     /*
     * Add Integer.
@@ -89,7 +113,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra + rb`
     */
-    OP_ADD_I    = 16U,
+    OP_ADD_I    = 32U,
 
     /*
     * Substract Integer.
@@ -98,7 +122,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra - rb`
     */
-    OP_SUB_I    = 17U,
+    OP_SUB_I    = 33U,
 
     /*
     * Multiply Integer.
@@ -107,7 +131,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra * rb`
     */
-    OP_MUL_I    = 18U,
+    OP_MUL_I    = 34U,
 
     /*
     * Divide Integer.
@@ -116,7 +140,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra / rb`
     */
-    OP_DIV_I    = 19U,
+    OP_DIV_I    = 35U,
 
     /*
     * Modulus Integer (Remainder).
@@ -125,7 +149,9 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra % rb`
     */
-    OP_MOD_I    = 20U,
+    OP_MOD_I    = 36U,
+
+    // ---------- 4. Unsigned Arithmetic ----------
 
     /*
     * Add Unsigned.
@@ -134,7 +160,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra + rb`
     */
-    OP_ADD_U    = 30U,
+    OP_ADD_U    = 48U,
 
     /*
     * Substract Unsigned.
@@ -143,7 +169,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra - rb`
     */
-    OP_SUB_U    = 31U,
+    OP_SUB_U    = 49U,
 
     /*
     * Multiply Unsigned.
@@ -152,7 +178,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra * rb`
     */
-    OP_MUL_U    = 32U,
+    OP_MUL_U    = 50U,
     
     /*
     * Divide Unsigned.
@@ -161,7 +187,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra / rb`
     */
-    OP_DIV_U    = 33U,
+    OP_DIV_U    = 51U,
 
     /*
     * Modulus Unsigned (Remainder).
@@ -170,7 +196,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra % rb`
     */
-    OP_MOD_U    = 34U,
+    OP_MOD_U    = 52U,
 
     /*
     * Add Floating-point.
@@ -179,7 +205,10 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra + rb`
     */
-    OP_ADD_F    = 44U,
+
+    // ---------- 5. Floating-Point Arithmetic ----------
+
+    OP_ADD_F    = 64U,
 
     /*
     * Substract Floating-point.
@@ -188,7 +217,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra - rb`
     */
-    OP_SUB_F    = 45U,
+    OP_SUB_F    = 65U,
 
     /*
     * Multiply Floating-point.
@@ -197,7 +226,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra * rb`
     */
-    OP_MUL_F    = 46U,
+    OP_MUL_F    = 66U,
 
     /*
     * Divide Floating-point.
@@ -206,7 +235,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra / rb`
     */
-    OP_DIV_F    = 47U,
+    OP_DIV_F    = 67U,
 
     /*
     * Modulus Floating-point (Remainder).
@@ -215,7 +244,9 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra % rb`
     */
-    OP_MOD_F    = 48U,
+    OP_MOD_F    = 68U,
+
+    // ---------- 6. Bitwise ----------
 
     /*
     * AND (bitwise).
@@ -224,7 +255,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra & rb`
     */
-    OP_AND      = 58U,
+    OP_AND      = 80U,
 
     /*
     * OR (Bitwise).
@@ -233,7 +264,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra | rb`
     */
-    OP_OR       = 59U,
+    OP_OR       = 81U,
 
     /*
     * NOT (Bitwise).
@@ -242,7 +273,7 @@ typedef enum {
     * `rb unused`.
     * job: `rd =~ra`
     */
-    OP_NOT      = 60U,
+    OP_NOT      = 82U,
 
     /*
     * XOR (Bitwise).
@@ -251,7 +282,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd =ra ^ rb`
     * */
-    OP_XOR      = 61U,
+    OP_XOR      = 83U,
 
     /* Shift Left (Bitwise).
     * `rd` used as target register index.
@@ -259,7 +290,7 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd = ra << rb`
     * */
-    OP_SL       = 62U,
+    OP_SL       = 84U,
 
     /*
     * Shift Right (Bitwise).
@@ -268,8 +299,9 @@ typedef enum {
     * `rb` used as source register-2 index.
     * job: `rd = ra >> rb`
     * */
-    OP_SR       = 63U,
+    OP_SR       = 85U,
 
+    // ---------- 7. Special ----------
     /*
     * Compare Registers.
     * `ra` used as register-1 index.
@@ -277,8 +309,8 @@ typedef enum {
     * `rd` specifies type.
     * job: `Sets flag register based on comparison result`.
     */
-    OP_CMPR     = 73U,
-
+    OP_CMPR     = 96U,
+    
     /*
     * Convert Types.
     * `rd` specifies operation.
@@ -286,7 +318,7 @@ typedef enum {
     * `rb` used as soucre register index.
     * job: `Converts type of register and stores it in target register`.
     */
-    OP_CT       = 74U,
+    OP_CT       = 97U,
 
     /*
     * Jump (Direct).
@@ -294,7 +326,11 @@ typedef enum {
     * `ra & rb unused`.
     * `pc = address`
     */
-    OP_JMP      = 84U,
+
+
+    // 8. ---------- Jump & Branching ----------
+
+    OP_JMP      = 112U,
 
     /*
     * Conditional Jump.
@@ -304,7 +340,7 @@ typedef enum {
     * `pc = address`.
     * jump if `flag == condition`.
     */
-    OP_CJMP     = 85U,
+    OP_CJMP     = 113U,
 
     /*
     * Call.
@@ -312,14 +348,14 @@ typedef enum {
     * `ra & rb unused`.
     * job: push PC+1 into stack then jump to address. and increase stack pointer by 1.
     */
-    OP_CALL     = 86U,
+    OP_CALL     = 114U,
 
     /*
     * Return.
     * `rd, ra, rb unused`
     * job: pop stack and jump to the address.
     */
-    OP_RET      = 87U,
+    OP_RET      = 115U,
 
 } OpCodes;
 
