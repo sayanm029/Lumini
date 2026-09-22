@@ -1,0 +1,85 @@
+# ==========================================
+# Prerequisites & Dependency Tracking
+# ==========================================
+*.d
+
+# ==========================================
+# Compiled Object & Intermediate Files
+# ==========================================
+*.slo
+*.lo
+*.o
+*.obj
+*.ko
+*.elf
+
+# ==========================================
+# Linker Outputs & Precompiled Headers
+# ==========================================
+*.ilk
+*.map
+*.exp
+*.gch
+*.pch
+
+# ==========================================
+# Compiled Static Libraries
+# ==========================================
+*.lai
+*.la
+*.a
+*.lib
+
+# ==========================================
+# Compiled Dynamic / Shared Libraries
+# ==========================================
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# ==========================================
+# Executables
+# ==========================================
+*.exe
+*.out
+*.app
+
+# ==========================================
+# Build Directories & Systems (CMake, etc.)
+# ==========================================
+[Bb]uild/
+[Bb]in/
+build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# ==========================================
+# Debugger & Profiler Files
+# ==========================================
+*.pdb
+*.dwo
+*.dSYM/
+*.su
+*.idb
+
+# ==========================================
+# Temporary Files & Common Editor Backups
+# ==========================================
+*.tmp
+*.log
+*.bak
+*.swp
+*~
+.DS_Store
+
+
+# ==========================================
+# Personal Files & Directories
+# ==========================================
+dump/
+note*
+.clangd
