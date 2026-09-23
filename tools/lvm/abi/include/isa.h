@@ -31,8 +31,8 @@ typedef enum : uint8_t {
 	OP_HALT      = 0x01,  // Terminate program execution
 	OP_SYS       = 0x02,  // System Call / Software Interrupt
 	
-	OP_LD        = 0x03,  // Load from memory address to register.
-	OP_ST        = 0x04,  // Store from register to memory address
+	OP_LD        = 0x03,  // Load from heap address to register.
+	OP_ST        = 0x04,  // Store from register to heap address
 	OP_LDI       = 0x05,  // Load Immediate value into register
 	OP_CPY       = 0x06,  // Copy register to register (Register Move)
 	OP_LDD		 = 0x07,  // Load Data from rodata 

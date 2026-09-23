@@ -11,7 +11,7 @@
  * @note register[index] means the value stored in register[index].
  *
  * @note When used for a string, register[index] contains the starting
- *       memory address of the string, and the associated length register
+ *       heap address of the string, and the associated length register
  *       contains the string length in bytes.
  */
 
@@ -24,7 +24,7 @@ typedef enum : uint8_t {
     /**
      * @brief Open a file.
      * @param rd Register where the file descriptor will be stored.
-     * @param rs1 Register containing the memory address of the filename.
+     * @param rs1 Register containing the heap address of the filename.
      * @param rs2 Register containing the filename length in bytes.
      */
     SYSC_FOPEN = 3,
@@ -54,7 +54,7 @@ typedef enum : uint8_t {
      * @brief Read bytes from a file.
      * @param rd Register containing the file descriptor.
      * @note register[TV0] contains the number of bytes to read.
-     * @note register[AD0] contains the destination memory address.
+     * @note register[AD0] contains the destination heap address.
      */
     SYSC_FREAD = 7,
 
@@ -62,29 +62,29 @@ typedef enum : uint8_t {
      * @brief Write bytes to a file.
      * @param rd Register containing the file descriptor.
      * @note register[TV0] contains the number of bytes to write.
-     * @note register[AD0] contains the source memory address.
+     * @note register[AD0] contains the source heap address.
      */
     SYSC_FWRITE = 8,
 
     /**
      * @brief Remove a file.
-     * @note register[AD0] contains the memory address of the filename.
+     * @note register[AD0] contains the heap address of the filename.
      * @note register[AD1] contains the filename length in bytes.
      */
     SYSC_FREMOVE = 9,
 
     /**
      * @brief Rename a file.
-     * @note register[AD0] contains the memory address of the old filename.
+     * @note register[AD0] contains the heap address of the old filename.
      * @note register[AD1] contains the length of the old filename in bytes.
-     * @note register[TV0] contains the memory address of the new filename.
+     * @note register[TV0] contains the heap address of the new filename.
      * @note register[TV1] contains the length of the new filename in bytes.
      */
     SYSC_FRENAME = 10,
 
     /**
      * @brief Create a file.
-     * @note register[AD0] contains the memory address of the filename.
+     * @note register[AD0] contains the heap address of the filename.
      * @note register[AD1] contains the filename length in bytes.
      */
     SYSC_FMAKE = 11,

@@ -5,12 +5,12 @@
 
 typedef struct {
 	union register_t reg[ABI_REG_COUNT];
-	uint8_t* memory;
+	uint8_t* heap;
 	uint8_t* program;
 	uint8_t* data;
 	uint8_t* stack;
 
-	uint32_t ms;	// memory size
+	uint32_t hs;	// heap size
 	uint32_t ic;	// instruction count
 	uint32_t ds;	// data size
 
@@ -38,6 +38,11 @@ bool setup_instance(lvm_instance_t *instance,lbf_file* file);
  * @param instance vm instance
  */
 void destroy_instance(lvm_instance_t* instance);
+
+
+
+/* Functions for error handling checks */
+[[gnu::cold]] bool validate_instance(lvm_instance_t vm);
 
 
 #endif

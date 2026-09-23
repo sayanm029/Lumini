@@ -10,7 +10,7 @@ const char LBF_IDENTIFIER[16] = {'L','V','M','B','y','t','e','c','o','d','e',' '
 
 static inline void init_header(lbf_header *header) {
 	memcpy(header->identifier,LBF_IDENTIFIER,LBF_IDENTIFIER_BYTES);
-	header->memory = 0;
+	header->heap_size = 0;
 	header->ic = 0;
 	header->ds = 0;
 	header->entry = 0;
@@ -22,7 +22,7 @@ static inline bool validate_header(lbf_header header) {
 	if(memcmp(header.identifier,LBF_IDENTIFIER,LBF_IDENTIFIER_BYTES) != 0) { return false;}
 	if(header.abi_version < ABI_VERSION) {return false;}
 
-	if(header.memory < MIN_HEAP_SIZE) {return false;}
+	if(header.heap_size < MIN_HEAP_SIZE) {return false;}
 	if(header.ic < MIN_INSTRUCTIONS || header.ic > MAX_INSTRUCTIONS) {return false;}
 	if(header.ds == MIN_DATA_SIZE || header.ds > MAX_DATA_SIZE) {return false;}
 	if(header.entry >= header.ic) {return false;}
@@ -31,12 +31,13 @@ static inline bool validate_header(lbf_header header) {
 	return true;
 }
 
-static inline bool validate_file(lbf_file file) {
-	if(!validate_header(file.header)) {return false;} 
-	if((file.header.ds != 0 && file.rodata == nullptr) || file.program == nullptr) {
-		return false;
-	}
-
+bool validate_lbf_file(lbf_file f) {
+	// header check
+	if(!validate_header(f.header)) {return false;}
+	// program & data check
+	if(f.program == nullptr) {return false;}
+	if(f.header.ds == 0 || f.header.ds >= MAX_DATA_SIZE) {return false;}
+	else {if(f.rodata == nullptr) {return false;}}
 	return true;
 }
 
@@ -125,7 +126,7 @@ bool load_lbf_file(lbf_file* file, const char* path) {
 
 	fclose(fp);
 
-	if(!validate_file(*file)) {
+	if(!validate_lbf_file(*file)) {
 		free_lbf_file(file);
 		return false;
 	}
@@ -135,7 +136,7 @@ bool load_lbf_file(lbf_file* file, const char* path) {
 
 bool write_lbf_file(const lbf_file* file, const char* path) {
 	if(file == nullptr || path == nullptr) {return false;}
-	if(!validate_file(*file)) {return false;}
+	if(!validate_lbf_file(*file)) {return false;}
 
 	FILE* fp = fopen(path, "wb");
 	if(fp == nullptr) {return false;}

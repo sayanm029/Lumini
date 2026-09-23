@@ -29,13 +29,13 @@ typedef enum : uint32_t {
     /* =========================================================================
      * GROUP 2: MEMORY, BUS & LIFECYCLE MANAGEMENT ERRORS
      * ========================================================================= */
-    RC_E_SEGFAULT            = 0x00000010, // Invalid memory access (Load/Store outside VM RAM limits)
+    RC_E_SEGFAULT            = 0x00000010, // Invalid heap access (Load/Store outside VM RAM limits)
     RC_E_BUS_ALIGNMENT       = 0x00000011, // Memory access (OP_LD, OP_ST) violates architecture alignment
-    RC_E_BAD_ADDRESS         = 0x00000012, // Pointer provided to a syscall (AD0, TV0, etc.) points to invalid memory
-    RC_E_BUFFER_OVERFLOW     = 0x00000013, // Read/Write buffer boundaries exceed valid memory space limits
+    RC_E_BAD_ADDRESS         = 0x00000012, // Pointer provided to a syscall (AD0, TV0, etc.) points to invalid heap
+    RC_E_BUFFER_OVERFLOW     = 0x00000013, // Read/Write buffer boundaries exceed valid heap space limits
     RC_E_STACK_OVERFLOW      = 0x00000014, // Call stack exceeded maximum capacity (nested calls)
     RC_E_STACK_UNDERFLOW     = 0x00000015, // Unmatched OP_RET executed with an empty call stack
-    RC_E_OUT_OF_MEMORY       = 0x00000016, // ENOMEM: VM memory allocator or host system resources exhausted
+    RC_E_OUT_OF_MEMORY       = 0x00000016, // ENOMEM: VM heap allocator or host system resources exhausted
 
     /* =========================================================================
      * GROUP 3: SYSTEM CALL / FILESYSTEM ERRORS (ABI Callbacks)

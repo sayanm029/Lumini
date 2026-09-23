@@ -11,7 +11,7 @@ extern const char LBF_IDENTIFIER[16];
 
 typedef struct {
 	uint8_t identifier[LBF_IDENTIFIER_BYTES];
-	uint32_t memory;
+	uint32_t heap_size;
 	uint32_t ic;
 	uint32_t ds;
 	uint32_t entry;
@@ -34,5 +34,8 @@ void init_lbf_file(lbf_file* file);
 bool load_lbf_file(lbf_file* file, const char* path);
 bool write_lbf_file(const lbf_file* file, const char* path);
 void free_lbf_file(lbf_file* file);
+
+/* functions for error handling checks */
+bool validate_lbf_file(lbf_file f);
 
 #endif /* FORMAT_H */
