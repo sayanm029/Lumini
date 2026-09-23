@@ -69,6 +69,7 @@ compile_commands.json
 # ==========================================
 # Temporary Files & Common Editor Backups
 # ==========================================
+.vscode
 *.tmp
 *.log
 *.bak

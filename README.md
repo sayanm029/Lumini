@@ -1,6 +1,6 @@
-# Lumini
-Lumini is a minimalist, procedural programming language designed for both high-level scripting <br>
-and low-level development. It focuses heavily on delivering rapid speed, strong security, and zero-overhead abstractions.
+<img src="image/lumini_banner.gif">
+
+Lumini is a minimalist, safe, procedural programming language designed for both rapid high-level scripting along low-level development. It focuses heavily on delivering rapid speed, strong security, and zero-overhead abstractions.
 
 ## Syntax Example
 ```
@@ -10,3 +10,31 @@ fn main():
 end
 ```
 
+## Key Goals
+* **C/C++ compatibility**
+* **cross platform code**
+* **modern syntax & features**
+
+## Requierments
+* **C Compiler**: `gcc 14+` or `clang 18+`
+* **Build System**: `make`
+
+
+## Roadmap
+* [x] Initial Stages
+* [ ] Lumini VM
+* [ ] Lumini Language Standard & Compiler
+* [ ] Lumini Shell
+* [ ] First Release
+
+## Contirbuting
+Contributions are always welcome. Help shape the core architecture of Lumini! 
+
+Whether you are fixing a bug, optimization profiling, or improving documentation, 
+
+your help is highly appreciated.
+
+## License
+
+* **Source Code:** This project is licensed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0) - see the [License](LICENSE) file for details.
+* **Branding & Graphics:** All assets within the `image/` directory are strictly protected under the [Creative Commons Attribution-NoDerivatives 4.0 International](images/LICENSE) license (see [image/license](image/LICENSE)). No modifications or derivatives of visual assets are permitted.
