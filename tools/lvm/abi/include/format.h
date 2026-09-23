@@ -1,24 +1,12 @@
 #ifndef FORMAT_H
 #define FORMAT_H
 #include "isa.h"
+#include "bounds.h"
 
 #include <stdint.h>
 #define LBF_IDENTIFIER_BYTES 16
 extern const char LBF_IDENTIFIER[16];
 
-#define MAX_FILE_SIZE 1ULL << 32		// 4 GB
-
-#define MIN_MEMORY_SIZE 1ULL << 12		// 4 KB
-#define MAX_MEMORY_SIZE 1ULL << 32		// 4 GB
-
-#define MIN_DATA_SIZE 0ULL
-#define MAX_DATA_SIZE 1ULL << 31
-
-#define MAX_PROGRAM_SIZE 1ULL << 31
-#define MAX_INSTRUCTIONS (MAX_PROGRAM_SIZE / sizeof(instruction))
-
-#define MIN_PROGRAM_SIZE (sizeof(instruction))
-#define MIN_INSTRUCTIONS 1
 
 
 typedef struct {
@@ -40,6 +28,7 @@ typedef struct {
 
 #define EXECUTABLE_EXTENSION ".lbf"
 #define HEADER_SIZE sizeof(lbf_header)
+#define MAX_FILE_SIZE (MAX_PROGRAM_SIZE+MAX_DATA_SIZE+HEADER_SIZE)
 
 void init_lbf_file(lbf_file* file);
 bool load_lbf_file(lbf_file* file, const char* path);

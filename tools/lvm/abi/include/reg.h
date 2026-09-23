@@ -93,4 +93,13 @@
      ABI_REG_IS_TEMP(r) || \
      ABI_REG_IS_SAVED(r))
 
+/**
+ * @brief Register Union
+ * 
+ */
+union register_t {
+    int64_t sval;
+    uint64_t uval;
+    double fval;
+};
 #endif /* REG_H */
