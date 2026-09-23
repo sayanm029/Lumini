@@ -22,7 +22,7 @@
 #define MIN_DATA_SIZE 0       // 0 Bytes
 #define MIN_PROGRAM_SIZE 128ULL     // 128 Bytes
 
-#define MAX_INSTRUCTIONS (MAX_PROGRAM_SIZE / sizeof(instruction))
-#define MIN_INSTRUCTIONS (MIN_PROGRAM_SIZE / sizeof(instruction))
+#define MAX_INSTRUCTIONS (MAX_PROGRAM_SIZE / INSTRUCTION_BYTES)
+#define MIN_INSTRUCTIONS (MIN_PROGRAM_SIZE / INSTRUCTION_BYTES)
 
 #endif

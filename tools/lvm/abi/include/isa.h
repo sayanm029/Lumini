@@ -12,6 +12,7 @@
  	4. rs2 (Source 2)	: 8 bits 
  */
 typedef uint32_t instruction;
+#define INSTRUCTION_BYTES sizeof(instruction)
 
 /**
  * @brief Opcode list.

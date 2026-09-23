@@ -26,7 +26,7 @@ static inline bool validate_header(lbf_header header) {
 	if(header.ic < MIN_INSTRUCTIONS || header.ic > MAX_INSTRUCTIONS) {return false;}
 	if(header.ds == MIN_DATA_SIZE || header.ds > MAX_DATA_SIZE) {return false;}
 	if(header.entry >= header.ic) {return false;}
-	uint64_t size = header.ds + (header.ic*sizeof(instruction));
+	uint64_t size = header.ds + (header.ic*INSTRUCTION_BYTES);
 	if(size > MAX_FILE_SIZE) {return false;}
 	return true;
 }
@@ -50,7 +50,7 @@ void init_lbf_file(lbf_file* file) {
 
 /*
  * On-disk layout:
- *   [lbf_header][program: header.ic * sizeof(instruction) bytes][rodata: header.ds bytes]
+ *   [lbf_header][program: header.ic * INSTRUCTION_BYTES bytes][rodata: header.ds bytes]
  * Native endianness is assumed; no byte-swapping is performed.
  */
 
@@ -93,7 +93,7 @@ bool load_lbf_file(lbf_file* file, const char* path) {
 	file->program = nullptr;
 	file->rodata = nullptr;
 
-	size_t program_size = (size_t)header.ic * sizeof(instruction);
+	size_t program_size = (size_t)header.ic * INSTRUCTION_BYTES;
 	file->program = malloc(program_size);
 	if(file->program == nullptr) {
 		fclose(fp);
@@ -145,7 +145,7 @@ bool write_lbf_file(const lbf_file* file, const char* path) {
 
 	if(fwrite(&file->header, sizeof(lbf_header), 1, fp) != 1) {ok = false;}
 
-	size_t program_size = (size_t)file->header.ic * sizeof(instruction);
+	size_t program_size = (size_t)file->header.ic * INSTRUCTION_BYTES;
 	if(ok && fwrite(file->program, 1, program_size, fp) != program_size) {ok = false;}
 
 	if(ok && file->header.ds > 0) {

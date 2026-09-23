@@ -98,7 +98,7 @@
  * 
  */
 union register_t {
-    int64_t sval;
+    int64_t val;
     uint64_t uval;
     double fval;
 };
