@@ -35,6 +35,7 @@ typedef enum : uint8_t {
 	OP_ST        = 0x04,  // Store from register to memory address
 	OP_LDI       = 0x05,  // Load Immediate value into register
 	OP_CPY       = 0x06,  // Copy register to register (Register Move)
+	OP_LDD		 = 0x07,  // Load Data from rodata 
 
 	/* =========================================================================
 	 * GROUP 1 (0x10 - 0x1F / 16 - 31): INTEGER ARITHMETIC (ALU)
@@ -83,8 +84,10 @@ typedef enum : uint8_t {
 	
 	OP_CALL      = 0x36,  // Call Subroutine
 	OP_RET       = 0x37,  // Return from Subroutine
+	OP_PUSHR	 = 0x38,
+	OP_POPR		 = 0x39,
 	
-	OP_CNV       = 0x38,  // Type Conversion / Cast
+	OP_CNV       = 0x3A,  // Type Conversion / Cast
 } opcode_t;
  
 

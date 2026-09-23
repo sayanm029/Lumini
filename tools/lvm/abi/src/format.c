@@ -22,7 +22,7 @@ static inline bool validate_header(lbf_header header) {
 	if(memcmp(header.identifier,LBF_IDENTIFIER,LBF_IDENTIFIER_BYTES) != 0) { return false;}
 	if(header.abi_version < ABI_VERSION) {return false;}
 
-	if(header.memory < MIN_MEMORY_SIZE) {return false;}
+	if(header.memory < MIN_HEAP_SIZE) {return false;}
 	if(header.ic < MIN_INSTRUCTIONS || header.ic > MAX_INSTRUCTIONS) {return false;}
 	if(header.ds == MIN_DATA_SIZE || header.ds > MAX_DATA_SIZE) {return false;}
 	if(header.entry >= header.ic) {return false;}

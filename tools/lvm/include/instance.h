@@ -3,21 +3,18 @@
 
 #include "abi.h"
 
-union register_t {
-	int64_t i64;
-	uint16_t u64;
-	double f64;
-};
-
 typedef struct {
 	union register_t reg[ABI_REG_COUNT];
 	uint8_t* memory;
 	uint8_t* program;
 	uint8_t* data;
+	uint8_t* stack;
 
-	uint32_t memsize;
-	uint32_t program_size;
-	uint32_t data_size;
+	uint32_t ms;	// memory size
+	uint32_t ic;	// instruction count
+	uint32_t ds;	// data size
+
+	uint32_t ss;	// stack size
 } lvm_instance_t;
 
 /* lvm instance life cycle functions. */
