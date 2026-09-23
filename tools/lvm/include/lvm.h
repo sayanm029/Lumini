@@ -19,5 +19,6 @@
 #include "abi.h"
 #include "instance.h"
 #include "runtime.h"
+#include "msg.h"
 
 #endif

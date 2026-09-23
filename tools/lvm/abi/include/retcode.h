@@ -35,8 +35,7 @@ typedef enum : uint32_t {
     RC_E_BUFFER_OVERFLOW     = 0x00000013, // Read/Write buffer boundaries exceed valid heap space limits
     RC_E_STACK_OVERFLOW      = 0x00000014, // Call stack exceeded maximum capacity (nested calls)
     RC_E_STACK_UNDERFLOW     = 0x00000015, // Unmatched OP_RET executed with an empty call stack
-    RC_E_OUT_OF_MEMORY       = 0x00000016, // ENOMEM: VM heap allocator or host system resources exhausted
-
+    RC_E_STRING_OVERFLOW     = 0x00000016,
     /* =========================================================================
      * GROUP 3: SYSTEM CALL / FILESYSTEM ERRORS (ABI Callbacks)
      * ========================================================================= */
@@ -49,8 +48,7 @@ typedef enum : uint32_t {
     RC_E_TOO_MANY_OPEN_FILES = 0x00000026, // EMFILE: Out of available internal file descriptor slots
     RC_E_NO_SPACE_LEFT       = 0x00000027, // ENOSPC: Storage media or virtual disk partition is full
     RC_E_FILE_EXISTS         = 0x00000028, // EEXIST: Creating a file (SYSC_FMAKE) with a name already in use
-    RC_E_NAME_TOO_LONG       = 0x00000029, // ENAMETOOLONG: Length in bytes (RS2, AD1, TV1) exceeds limits
-    RC_E_IO_FAILURE          = 0x0000002A, // EIO: Low-level physical host read/write system failure
+    RC_E_IO_FAILURE          = 0x00000029, // EIO: Low-level physical host read/write system failure
 
 } vm_return_code_t;
 
