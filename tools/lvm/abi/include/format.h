@@ -42,8 +42,8 @@ typedef struct {
 #define HEADER_SIZE sizeof(lbf_header)
 
 void init_lbf_file(lbf_file* file);
-bool load_lbf_file(lbf_file* file);
-bool write_lbf_file(const lbf_file* file);
+bool load_lbf_file(lbf_file* file, const char* path);
+bool write_lbf_file(const lbf_file* file, const char* path);
 void free_lbf_file(lbf_file* file);
 
 #endif /* FORMAT_H */

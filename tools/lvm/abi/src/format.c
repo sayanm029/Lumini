@@ -70,7 +70,7 @@ bool load_lbf_file(lbf_file* file, const char* path) {
 		return false;
 	}
 
-	if (statbuf.st_size >= MAX_FILE_SIZE) {
+	if ((size_t)statbuf.st_size >= (size_t)MAX_FILE_SIZE) {
 		fprintf(stderr, "Error: file size is too big\n");
 		return false;
 	}
