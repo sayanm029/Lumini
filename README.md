@@ -15,17 +15,30 @@ end
 * **cross platform code**
 * **modern syntax & features**
 
-## Requierments
-* **C Compiler**: `gcc 14+` or `clang 18+`
-* **Build System**: `make`
+	### Feature Goals:
+    * **Modern Features:** Native support for modules and zero overhead objects.
+    * **Minimalist Design:** Enforces a strict constraint of under 40 total keywords to ensure simplicity and maintainability.
+    * **Platform Independence:** Utilizes LuminiVM for seamless cross-platform execution.
+    * **Blazing-Fast Production:** Employs the Lumini Compiler to generate optimized, platform-specific machine code.
+    * **AOT Compilation Backend:** Leverages libgccjit for high-performance Ahead-Of-Time code generation.
 
 
 ## Roadmap
 * [x] Initial Stages
 * [ ] Lumini VM
+	* [x] Lumini VM Architecture
+	* [x] ABI & Functinalities
+	* [ ] Runtime   
 * [ ] Lumini Language Standard & Compiler
 * [ ] Lumini Shell
 * [ ] First Release
+
+## Getting Started
+* 
+	### Requierments
+    * **C Compiler**: `gcc 14+` or `clang 18+`
+    * **Build System**: `make 4.4+`
+    * **shell**: `bash`
 
 ## Contirbuting
 Contributions are always welcome. Help shape the core architecture of Lumini! 
