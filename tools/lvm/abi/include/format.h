@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 #define LBF_IDENTIFIER_BYTES 16
-const char LBF_IDENTIFIER[16] = {'L','V','M','B','y','t','e','c','o','d','e',' ','F','i','l','e'};
+extern const char LBF_IDENTIFIER[16];
 
 #define MAX_FILE_SIZE 1ULL << 32		// 4 GB
 

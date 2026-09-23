@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
+const char LBF_IDENTIFIER[16] = {'L','V','M','B','y','t','e','c','o','d','e',' ','F','i','l','e'};
+
 static inline void init_header(lbf_header *header) {
 	memcpy(header->identifier,LBF_IDENTIFIER,LBF_IDENTIFIER_BYTES);
 	header->memory = 0;
