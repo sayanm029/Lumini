@@ -11,13 +11,14 @@ extern const char LBF_IDENTIFIER[16];
 
 typedef struct {
 	uint8_t identifier[LBF_IDENTIFIER_BYTES];
-	uint32_t heap_size;
-	uint32_t ic;
-	uint32_t ds;
-	uint32_t entry;
-	uint16_t flags;
-	uint16_t abi_version;
-	uint8_t padding[28];
+	uint32_t heap_size;	// heap size
+	uint32_t ic;		// instrcution count
+	uint32_t ds;		// data size
+	uint32_t ss;		// stack size
+	uint32_t entry;		// program entry point
+	uint16_t flags;		// flags
+	uint16_t abi_version; // abi version
+	uint8_t padding[24];	// padding
 } lbf_header;
 
 typedef struct {

@@ -10,7 +10,7 @@
 	// stack bounds check
 	if(vm.ss < MIN_STACK_SIZE || vm.hs >= MAX_STACK_SIZE) {return false;}
 	// program bounds check
-	if(vm.ic*sizeof(instruction) < MIN_INSTRUCTIONS || vm.ic*sizeof(instruction) >= MAX_INSTRUCTIONS) {return false;}
+	if(vm.ic*INSTRUCTION_BYTES < MIN_INSTRUCTIONS || vm.ic*INSTRUCTION_BYTES >= MAX_INSTRUCTIONS) {return false;}
 	// data bounds check
 	if(vm.ds >= MAX_DATA_SIZE) {return false;}
 	return true;
@@ -55,6 +55,13 @@ bool setup_instance(lvm_instance_t *instance, lbf_file *file) {
 			free(instance->heap);
 			return false;
 		}
+
+		/* Setup Instance's Tracker Variables */
+		instance->reg[REG_PC].uval = file->header.entry;
+		instance->hs = file->header.heap_size;
+		instance->ic = file->header.ic;
+		instance->ds = file->header.ds;
+		instance->ss = file->header.ss;
 	} else {return false;}
 	return true;
 }
