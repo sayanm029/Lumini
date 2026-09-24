@@ -99,7 +99,7 @@
  */
 union register_t {
     int64_t val;
-    uint64_t uval;
+    uint64_t u64;
     double fval;
 };
 #endif /* REG_H */

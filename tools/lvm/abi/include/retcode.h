@@ -25,6 +25,8 @@ typedef enum : uint32_t {
     RC_E_JMP_MISALIGNED      = 0x00000006, // Control flow target (JMP/BR) is not 32-bit (4-byte) aligned
     RC_E_BRANCH_OUT_OF_BOUNDS= 0x00000007, // Relative jump target points outside valid code segments
     RC_E_INVALID_CAST        = 0x00000008, // OP_CNV failed due to incompatible types or corrupted values
+    RC_E_BAD_INSTRUCTION     = 0x00000009, // Invalid Instruction
+    RC_E_INSTRUCTION_ALIGNMENT = 0x00000A, // Invalid Instruction Alignment
 
     /* =========================================================================
      * GROUP 2: MEMORY, BUS & LIFECYCLE MANAGEMENT ERRORS

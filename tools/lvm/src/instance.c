@@ -57,7 +57,7 @@ bool setup_instance(lvm_instance_t *instance, lbf_file *file) {
 		}
 
 		/* Setup Instance's Tracker Variables */
-		instance->reg[REG_PC].uval = file->header.entry;
+		instance->reg[REG_PC].u64 = file->header.entry;
 		instance->hs = file->header.heap_size;
 		instance->ic = file->header.ic;
 		instance->ds = file->header.ds;
