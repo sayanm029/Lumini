@@ -147,7 +147,7 @@ int main(int argc, char** argv)
 
 
 	/* Load program */
-	if (!load_lbf_file(&file, argv[2])) {
+	if (!load_lbf_file(&file, argv[1])) {
 		return 1;
 	}
 

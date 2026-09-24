@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-[[gnu::cold]] bool validate_instance(lvm_instance_t vm) {
+bool validate_instance(lvm_instance_t vm) {
 	// heap bounds check
 	if(vm.hs < MIN_HEAP_SIZE || vm.hs >= MAX_HEAP_SIZE) {return false;}
 	// stack bounds check
@@ -36,7 +36,7 @@ bool setup_instance(lvm_instance_t *instance, lbf_file *file) {
 	// nullptr check
 	if(instance == nullptr || file == nullptr) {return false;}
 
-	if(validate_instance(*instance) && validate_lbf_file(*file)) {
+	if(validate_lbf_file(*file)) {
 
 		/* Borrow program & rodata */
 		instance->program = file->program;
@@ -73,4 +73,9 @@ void destroy_instance(lvm_instance_t *instance) {
 	/* set borrowed parameters as nullptr */
 	instance->program = nullptr;
 	instance->data = nullptr;
+
+	/* --- Reset VM values */
+	instance->ds = 0; instance->hs = 0;  instance->ss = 0; instance->ic = 0;
+	instance->state = LVM_STATE_FREED;
+	memset(&instance->reg,0,sizeof(instance->reg));
 }

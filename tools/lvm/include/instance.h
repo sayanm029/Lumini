@@ -3,7 +3,14 @@
 
 #include "abi.h"
 
+typedef enum {
+	LVM_STATE_INITIALIZED = 0,
+	LVM_INSTANCE_READY = 1,
+	LVM_STATE_FREED = 2,
+} lvm_state;
+
 typedef struct {
+	unsigned int state;
 	union register_t reg[ABI_REG_COUNT];
 	uint8_t* heap;
 	uint8_t* program;
@@ -42,7 +49,7 @@ void destroy_instance(lvm_instance_t* instance);
 
 
 /* Functions for error handling checks */
-[[gnu::cold]] bool validate_instance(lvm_instance_t vm);
+bool validate_instance(lvm_instance_t vm);
 
 
 #endif

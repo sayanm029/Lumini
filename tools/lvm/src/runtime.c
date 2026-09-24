@@ -11,6 +11,7 @@
 
 [[gnu::hot]] int run_instance(lvm_instance_t* vm) {
 	// instance check
+	if(vm == nullptr) {return -1;}
 	if(!validate_instance(*vm)) {return -1;}
 
 	/*
@@ -163,14 +164,14 @@
 	op_ld: {
 		DECODE();
 		if(vm->reg[rs1].u64 + 7U > vm->hs) {THROW(RC_E_SEGFAULT);}
-		memcpy_s(&vm->reg[rd].u64,sizeof(uint64_t),&vm->heap[(uint32_t)vm->reg[rs1].u64],8);
+		memcpy(&vm->reg[rd].u64,&vm->heap[(uint32_t)vm->reg[rs1].u64],8);
 		DISPATCH();
 	}
 	// store to heap
 	op_st: {
 		DECODE();
 		if(vm->reg[rs1].u64 + 7U > vm->hs) {THROW(RC_E_SEGFAULT);}
-		memcpy_s(&vm->heap[(uint32_t)vm->reg[rs1].u64],sizeof(uint64_t),&vm->reg[rd].u64,8);
+		memcpy(&vm->heap[(uint32_t)vm->reg[rs1].u64],&vm->reg[rd].u64,8);
 		DISPATCH();
 	}
 	// load 16-bit immidiate
@@ -189,7 +190,7 @@
 	op_ldd: {
 		DECODE();
 		if(vm->reg[rs1].u64 + 7U > vm->ds) {THROW(RC_E_SEGFAULT);}
-		memcpy_s(&vm->reg[rd].u64,sizeof(uint64_t),&vm->data[(uint32_t)vm->reg[rs1].u64],8);
+		memcpy(&vm->reg[rd].u64,&vm->data[(uint32_t)vm->reg[rs1].u64],8);
 		DISPATCH();
 	}
 
@@ -248,7 +249,6 @@
 		}
 		if (UNLIKELY(n == INT64_MIN && d == -1)) {
 			THROW(RC_E_INTEGER_OVERFLOW);
-			vm->reg[rd].i64 = n / d;
 		}
 		
 		DISPATCH();
@@ -375,7 +375,7 @@
 	}
 	op_not: {
 		DECODE();
-		vm->reg[rd].u64 = !vm->reg[rs1].u64;
+		vm->reg[rd].u64 = ~vm->reg[rs1].u64;
 		DISPATCH();
 	}
 	op_xor: {
@@ -490,19 +490,96 @@
 	op_call: {
 		DECODE();
 
-		DISPATCH();
-	}
-	op_ret: {
-		DECODE();
+		uintptr_t target = (uintptr_t)vm->reg[rd].u64;
+		uintptr_t program_begin = (uintptr_t)vm->program;
+		uintptr_t program_limit = (uintptr_t)program_end;
+
+		/* Targets must point inside the program and be instruction-aligned. */
+		if (target < program_begin ||
+		    target >= program_limit ||
+		    ((target - program_begin) % INSTRUCTION_BYTES) != 0) {
+			THROW(RC_E_BAD_JUMP_TARGET);
+		}
+
+		/* The decoded _pc is the return address. */
+		uint64_t return_address = (uint64_t)(uintptr_t)_pc;
+
+		if (vm->reg[REG_SP].u64 > vm->ss ||
+		    vm->ss - vm->reg[REG_SP].u64 < sizeof(return_address)) {
+			THROW(RC_E_STACK_OVERFLOW);
+		}
+
+		memcpy(&vm->stack[vm->reg[REG_SP].u64],
+		       &return_address,
+		       sizeof(return_address));
+
+		vm->reg[REG_SP].u64 += sizeof(return_address);
+		_pc = (uint8_t *)target;
 
 		DISPATCH();
 	}
-	op_push: {
+
+	op_ret: {
 		DECODE();
+
+		if (vm->reg[REG_SP].u64 < sizeof(uint64_t) ||
+		    vm->reg[REG_SP].u64 > vm->ss) {
+			THROW(RC_E_STACK_UNDERFLOW);
+		}
+
+		vm->reg[REG_SP].u64 -= sizeof(uint64_t);
+
+		uint64_t return_address;
+		memcpy(&return_address,
+		       &vm->stack[vm->reg[REG_SP].u64],
+		       sizeof(return_address));
+
+		uintptr_t target = (uintptr_t)return_address;
+		uintptr_t program_begin = (uintptr_t)vm->program;
+		uintptr_t program_limit = (uintptr_t)program_end;
+
+		if (target < program_begin ||
+		    target >= program_limit ||
+		    ((target - program_begin) % INSTRUCTION_BYTES) != 0) {
+			THROW(RC_E_BAD_JUMP_TARGET);
+		}
+
+		_pc = (uint8_t *)target;
 		DISPATCH();
 	}
+
+	op_push: {
+		DECODE();
+
+		if (vm->reg[REG_SP].u64 > vm->ss ||
+		    vm->ss - vm->reg[REG_SP].u64 < sizeof(uint64_t)) {
+			THROW(RC_E_STACK_OVERFLOW);
+		}
+
+		uint64_t value = vm->reg[rd].u64;
+
+		memcpy(&vm->stack[vm->reg[REG_SP].u64],
+		       &value,
+		       sizeof(value));
+
+		vm->reg[REG_SP].u64 += sizeof(value);
+		DISPATCH();
+	}
+
 	op_pop: {
 		DECODE();
+
+		if (vm->reg[REG_SP].u64 < sizeof(uint64_t) ||
+		    vm->reg[REG_SP].u64 > vm->ss) {
+			THROW(RC_E_STACK_UNDERFLOW);
+		}
+
+		vm->reg[REG_SP].u64 -= sizeof(uint64_t);
+
+		memcpy(&vm->reg[rd].u64,
+		       &vm->stack[vm->reg[REG_SP].u64],
+		       sizeof(uint64_t));
+
 		DISPATCH();
 	}
 

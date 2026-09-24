@@ -24,7 +24,8 @@ static inline bool validate_header(lbf_header header) {
 
 	if(header.heap_size < MIN_HEAP_SIZE) {return false;}
 	if(header.ic < MIN_INSTRUCTIONS || header.ic > MAX_INSTRUCTIONS) {return false;}
-	if(header.ds == MIN_DATA_SIZE || header.ds > MAX_DATA_SIZE) {return false;}
+	if(header.ds == MIN_DATA_SIZE || header.ds > MAX_DATA_SIZE) {return false;} else if((header.ds % 8) != 0) {return false;}
+
 	if(header.entry >= header.ic) {return false;}
 	uint64_t size = header.ds + (header.ic*INSTRUCTION_BYTES);
 	if(size > MAX_FILE_SIZE) {return false;}

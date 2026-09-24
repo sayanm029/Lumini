@@ -12,7 +12,7 @@
 
 /* Read-write registers */
 
-#define REG_HP 250
+#define REG_HP 251
 #define REG_BP 250
 #define REG_AD0 249
 #define REG_AD1 248
