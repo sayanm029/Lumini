@@ -20,11 +20,11 @@ static inline void init_header(lbf_header *header) {
 
 static inline bool validate_header(lbf_header header) {
 	if(memcmp(header.identifier,LBF_IDENTIFIER,LBF_IDENTIFIER_BYTES) != 0) { return false;}
-	if(header.abi_version < ABI_VERSION) {return false;}
+	if(header.abi_version > ABI_VERSION) {return false;}
 
-	if(header.heap_size < MIN_HEAP_SIZE) {return false;}
+	if(header.heap_size < MIN_HEAP_SIZE || header.heap_size > MAX_HEAP_SIZE) {return false;}
 	if(header.ic < MIN_INSTRUCTIONS || header.ic > MAX_INSTRUCTIONS) {return false;}
-	if(header.ds == MIN_DATA_SIZE || header.ds > MAX_DATA_SIZE) {return false;} else if((header.ds % 8) != 0) {return false;}
+	if(header.ds > MAX_DATA_SIZE) {return false;} else if((header.ds % 8) != 0) {return false;}
 
 	if(header.entry >= header.ic) {return false;}
 	uint64_t size = header.ds + (header.ic*INSTRUCTION_BYTES);
@@ -71,6 +71,7 @@ bool load_lbf_file(lbf_file* file, const char* path) {
 
 	if (fstat64(fd, &statbuf) == -1) {
 		perror("Error getting file status"); 
+		fclose(fp);
 		return false;
 	}
 

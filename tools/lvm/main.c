@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 
 	/* Explain return code directly: -e=<code> */
 	if (argc >= 2) {
-		if (strncmp(argv[2], "-e=", 3) == 0) {
+		if (strncmp(argv[1], "-e=", 3) == 0) {
 			char *endptr;
 
 			errno = 0;
@@ -148,12 +148,12 @@ int main(int argc, char** argv)
 
 	/* Load program */
 	if (!load_lbf_file(&file, argv[1])) {
-		return 1;
+		goto cleanup;
 	}
 
 	/* Setup VM instance */
 	if (!setup_instance(&instance, &file)) {
-		return 1;
+		goto cleanup;
 	}
 
 
@@ -173,7 +173,7 @@ int main(int argc, char** argv)
 	/* =====================================================================
 	 * Cleanup
 	 * ===================================================================== */
-
+	cleanup: 
 	destroy_instance(&instance);
 	free_lbf_file(&file);
 

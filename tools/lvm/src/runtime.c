@@ -96,6 +96,7 @@
 
 	/* Decode one complete 4-byte instruction. */
 	#define DECODE() do {                  \
+		if (_pc+INSTRUCTION_BYTES >= program_end) { THROW(RC_E_PC_OUT_OF_BOUNDS); } \
 		op  = FETCH();                    \
 		rd  = FETCH();                    \
 		rs1 = FETCH();                    \
@@ -121,10 +122,19 @@
 
 	/* Relative jump: Move the Program Counter forward or backward by a byte offset */
 	#define RJUMP(offset) do { \
-		_pc += (int32_t)(offset); \
-		if (_pc < vm->program || _pc >= program_end) { \
-			THROW(RC_E_BAD_JUMP_TARGET); \
-		} \
+		intptr_t base = (intptr_t)(uintptr_t)_pc;\
+	intptr_t delta = (intptr_t)(int32_t)offset; \
+	intptr_t target = base + delta; \
+ \
+	intptr_t begin = (intptr_t)(uintptr_t)vm->program;\
+	intptr_t end = (intptr_t)(uintptr_t)program_end;\
+\
+	if (target < begin || target >= end ||\
+		((target - begin) % (int)INSTRUCTION_BYTES) != 0) {\
+		THROW(RC_E_BAD_JUMP_TARGET);\
+	}\
+\
+	_pc = (uint8_t *)(uintptr_t)target;\
 	} while (0)
 
 
@@ -150,8 +160,8 @@
 	}
 
 	op_nop: {
-		*_pc += 4;
-		DISPATCH();
+	_pc += INSTRUCTION_BYTES;
+	DISPATCH();
 	}
 	// halt execution
 	op_halt: {
@@ -247,6 +257,8 @@
 		if (UNLIKELY(n == INT64_MIN && d == -1)) {
 			THROW(RC_E_INTEGER_OVERFLOW);
 		}
+
+		vm->reg[rd].i64 = n / d;
 		
 		DISPATCH();
 	}
