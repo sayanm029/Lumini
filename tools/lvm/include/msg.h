@@ -10,7 +10,7 @@ typedef struct {
  * @brief Shows message on return code after execution.
  * @param return_code returned form any execution function from `runtime.c`
  */
-void show_message_on_return(int return_code);
+void explain_return_code(int return_code,bool show_string);
 
 
 #endif

@@ -55,8 +55,18 @@ static const msg_t *find_message(int return_code)
 	return nullptr;
 }
 
-void show_message_on_return(int return_code)
-{
+void explain_return_code(int return_code,bool show_string) {
+
+
+	if(!show_string) {
+		if(return_code < 2) {
+			printf("\nCode: %d\n",return_code);
+		}
+		printf("\nError: %d\n",return_code);
+
+		return;
+	}
+
 	const msg_t *msg = find_message(return_code);
 
 	if (msg == nullptr)
