@@ -36,7 +36,7 @@ end
 ## Getting Started
 * 
 	### Requierments
-    * **C Compiler**: `gcc 14+` or `clang 18+`
+    * **C Compiler (Must support C23)**: `gcc 14+` or `clang 18+`
     * **Build System**: `make 4.4+`
     * **shell**: `bash`
 
