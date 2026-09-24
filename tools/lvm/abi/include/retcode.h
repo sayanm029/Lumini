@@ -27,7 +27,8 @@ typedef enum : uint32_t {
     RC_E_INVALID_CAST        = 0x00000008, // OP_CNV failed due to incompatible types or corrupted values
     RC_E_BAD_INSTRUCTION     = 0x00000009, // Invalid Instruction
     RC_E_INSTRUCTION_ALIGNMENT = 0x00000A, // Invalid Instruction Alignment
-
+    RC_E_INVALID_SHIFT        = 0x000000B, // Invalid Shift 
+    
     /* =========================================================================
      * GROUP 2: MEMORY, BUS & LIFECYCLE MANAGEMENT ERRORS
      * ========================================================================= */

@@ -70,6 +70,8 @@ typedef enum : uint8_t {
 	OP_NOT       = 0x28,  // Bitwise NOT (Unary)
 	OP_SHL       = 0x29,  // Logical Shift Left
 	OP_SHR       = 0x2A,  // Logical Shift Right
+	OP_ASL		 = 0x2B,  // Arithmetic Shift Left (Preserves Sign Bit)
+	OP_ASR		 = 0x2C,  // Arithmetic Shift Right (Preserved Sign Bit)
 
 	/* =========================================================================
 	 * GROUP 3 (0x30 - 0x3F / 48 - 63): CONTROL FLOW & TYPE CONVERSION
