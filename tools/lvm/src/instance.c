@@ -14,6 +14,8 @@ bool validate_instance(lvm_instance_t vm) {
 	// data bounds check
 	if(vm.ds >= MAX_DATA_SIZE) {return false;}
 	return true;
+
+	/* as program calculated as instruction count (ic), alignment check is no more needed. */
 }
 
 

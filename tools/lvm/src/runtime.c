@@ -96,9 +96,6 @@
 
 	/* Decode one complete 4-byte instruction. */
 	#define DECODE() do {                  \
-		if ((size_t)(program_end - _pc) < 4) {\
-			THROW(RC_E_INSTRUCTION_ALIGNMENT);}                \
-										\
 		op  = FETCH();                    \
 		rd  = FETCH();                    \
 		rs1 = FETCH();                    \
