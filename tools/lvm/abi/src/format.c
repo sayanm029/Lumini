@@ -37,7 +37,7 @@ bool validate_lbf_file(lbf_file f) {
 	if(!validate_header(f.header)) {return false;}
 	// program & data check
 	if(f.program == nullptr) {return false;}
-	if(f.header.ds == 0 || f.header.ds >= MAX_DATA_SIZE) {return false;}
+	if( f.header.ds >= MAX_DATA_SIZE) {return false;}
 	else {if(f.rodata == nullptr) {return false;}}
 	return true;
 }

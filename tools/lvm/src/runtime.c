@@ -531,8 +531,7 @@
 	op_ret: {
 		DECODE();
 
-		if (vm->reg[REG_SP].u64 < sizeof(uint64_t) ||
-		    vm->reg[REG_SP].u64 > vm->ss) {
+		if (vm->reg[REG_SP].u64 - 8U < sizeof(uint64_t)) {
 			THROW(RC_E_STACK_UNDERFLOW);
 		}
 
@@ -560,7 +559,7 @@
 	op_push: {
 		DECODE();
 
-		if (vm->reg[REG_SP].u64 > vm->ss ||
+		if (vm->reg[REG_SP].u64 + 8U > vm->ss ||
 		    vm->ss - vm->reg[REG_SP].u64 < sizeof(uint64_t)) {
 			THROW(RC_E_STACK_OVERFLOW);
 		}
@@ -578,7 +577,7 @@
 	op_pop: {
 		DECODE();
 
-		if (vm->reg[REG_SP].u64 < sizeof(uint64_t) ||
+		if (vm->reg[REG_SP].u64 - 8U < sizeof(uint64_t) ||
 		    vm->reg[REG_SP].u64 > vm->ss) {
 			THROW(RC_E_STACK_UNDERFLOW);
 		}
