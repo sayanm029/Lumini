@@ -98,8 +98,8 @@
  * 
  */
 union register_t {
-    int64_t val;
+    int64_t i64;
     uint64_t u64;
-    double fval;
+    double f64;
 };
 #endif /* REG_H */
