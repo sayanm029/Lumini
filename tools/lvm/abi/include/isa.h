@@ -89,10 +89,8 @@ typedef enum : uint8_t {
 	OP_RET       = 0x37,  // Return from Subroutine
 	OP_PUSH		 = 0x38,
 	OP_POP		 = 0x39,
-	OP_PUSHR	 = 0x3A,
-	OP_POPR		 = 0x3B,
 	
-	OP_CNV       = 0x3C,  // Type Conversion / Cast
+	OP_CNV       = 0x3A,  // Type Conversion / Cast
 } opcode_t;
  
 #define OPCODE_RANGE_1 63	// 0 - 63

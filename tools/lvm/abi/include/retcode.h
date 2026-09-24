@@ -28,6 +28,8 @@ typedef enum : uint32_t {
     RC_E_BAD_INSTRUCTION     = 0x00000009, // Invalid Instruction
     RC_E_INSTRUCTION_ALIGNMENT = 0x00000A, // Invalid Instruction Alignment
     RC_E_INVALID_SHIFT        = 0x000000B, // Invalid Shift 
+    RC_E_BAD_JUMP_TARGET      = 0x00000C, // Invalid Jump Address.
+    RC_E_PC_OUT_OF_BOUNDS     = 0x00000D,  // Occours while normal dispatch
     
     /* =========================================================================
      * GROUP 2: MEMORY, BUS & LIFECYCLE MANAGEMENT ERRORS
@@ -39,6 +41,8 @@ typedef enum : uint32_t {
     RC_E_STACK_OVERFLOW      = 0x00000014, // Call stack exceeded maximum capacity (nested calls)
     RC_E_STACK_UNDERFLOW     = 0x00000015, // Unmatched OP_RET executed with an empty call stack
     RC_E_STRING_OVERFLOW     = 0x00000016,
+   
+
     /* =========================================================================
      * GROUP 3: SYSTEM CALL / FILESYSTEM ERRORS (ABI Callbacks)
      * ========================================================================= */
