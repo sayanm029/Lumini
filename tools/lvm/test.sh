@@ -15,23 +15,32 @@ make all
 if [[ -x "$LVM" ]]; then
     echo "# 1. Testing LVM CLI arguments..."
     
-    printf "\n ====== Test 1. help ====== \n"
+    printf "\n 1.1 Help (--help) \n"
     ./"$LVM" --help
-
-    printf "\n ====== Test 2. version ====== \n"
+    printf "\n ------------------------------------- \n"
+    printf "\n 1.2 Version (--version) \n"
     ./"$LVM" --version
-
-    printf "\n ====== Test 3. detailed info  ====== \n"
+    printf "\n ------------------------------------- \n"
+    printf "\n 1.3 Verbose Information (-v) \n"
     ./"$LVM" -v
-
-    printf "\n ====== Test 4. error explanation ====== \n"
+    printf "\n ------------------------------------- \n"
+    printf "\n 1.4 Error Code Explainations (-e=code) \n"
     for i in {1..64}; do
         ./"$LVM"  -e="$i"
     done
+    printf "\n ------------------------------------- \n"
+    printf "\n 1.5 No Arguments \n"
+    ! ./"$LVM"
+    printf "\n ------------------------------------- \n"
+    printf "\n 1.6 Unknown Option \n"
+    ! ./"$LVM" --unknown-option 
+    printf "\n ------------------------------------- \n"
 
-    printf "# 2. Starting comprehensive test.\n"
+
+
+    printf "\n# 2. Starting comprehensive test.\n"
     make test
-
+    make clean
 else
     echo "Error: Executable $LVM not found or not executable." >&2
     exit 1

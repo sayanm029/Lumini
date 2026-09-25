@@ -6,7 +6,7 @@
 
 static msg_t message[] = {
 	{RC_SUCCESS,                  nullptr},
-	{RC_PROGRAM_HALTED,           "Message (0x1): Program Halted."},
+	{RC_PROGRAM_HALTED,           "Code (0x01): Program Halted"},
 
 	{RC_E_DIV_BY_ZERO,            "Error (0x2): Division by Zero"},
 	{RC_E_INTEGER_OVERFLOW,       "Error (0x3): Integer overflow"},
@@ -18,6 +18,8 @@ static msg_t message[] = {
 	{RC_E_BAD_INSTRUCTION,        "Error (0x9): Invalid Instruction"},
 	{RC_E_INSTRUCTION_ALIGNMENT,  "Error (0xA): Invalid Instruction Alignment"},
 	{RC_E_INVALID_SHIFT,          "Error (0xB): Invalid Shift"},
+	{RC_E_BAD_JUMP_TARGET,		  "Error (0xC): Bad Jump Target"},
+	{RC_E_PC_OUT_OF_BOUNDS,		  "Error (0xD: PC out of bounds"},
 
 	{RC_E_SEGFAULT,               "Error (0x10): Invalid heap access (Load/Store outside VM RAM limits)"},
 	{RC_E_BUS_ALIGNMENT,          "Error (0x11): Unaligned Memory Access"},
@@ -65,11 +67,14 @@ void explain_return_code(int return_code,bool show_string) {
 
 
 	if(!show_string) {
-		if(return_code < 2) {
-			printf("\nCode: %d\n",return_code);
+		char* text = nullptr;
+		switch(return_code) {
+			case 0: text = "Code 0: Sucess"; break;
+			case 1: text = "Code 1: Program Halted"; break;
+			default: printf("\n--- Code %d ---\n",return_code);
 		}
-		printf("\nError: %d\n",return_code);
-
+		if(text == nullptr) {return;}
+		printf("%s\n",text);
 		return;
 	}
 

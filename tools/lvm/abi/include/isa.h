@@ -93,15 +93,6 @@ typedef enum : uint8_t {
 	OP_CNV       = 0x3A,  // Type Conversion / Cast
 } opcode_t;
  
-#define OPCODE_RANGE_1 63	// 0 - 63
-#define OPCODE_RANGE_2 95	// 0 - 95
-#define OPCODE_RANGE_3 127  // 0 - 127
-#define OPCODE_RANGE_4 159  // 0 - 159
-#define OPCODE_RANGE_5 191	// 0 - 191
-#define OPCODE_RANGE_6 223	// 0 - 223
-#define OPCODE_RANGE_max 255 	// 0 - 255
 
-
-#define CURRENT_OPCODE_RANGE OPCODE_RANGE_1
 
 #endif /* ISA_H */

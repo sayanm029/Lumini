@@ -1,5 +1,5 @@
-#ifndef HELP_H
-#define HELP_H
+#ifndef MSG_
+#define MSG_
 
 typedef struct {
 	int code;
@@ -13,4 +13,4 @@ typedef struct {
 void explain_return_code(int return_code,bool show_string);
 
 
-#endif
+#endif /* MSG_H */

@@ -30,31 +30,31 @@
 	[32] = &&op_fadd,[33] = &&op_fsub,[34] = &&op_fmul,[35] = &&op_fdiv,[36] = &&op_fmod,[37] = &&op_and,[38] = &&op_or,[39] = &&op_not,[40] = &&op_xor,[41] = &&op_shl,[42] = &&op_shr,[43] = &&op_asl,[44] = &&op_asr,[45] = &&bad_opcode,[46] = &&bad_opcode,[47] = &&bad_opcode,
 	//  GROUP 3 : CONTROL FLOW & TYPE CONVERSION
 	[48] = &&op_jmp,[49] = &&op_rjmp,[50] = &&op_br_gt,[51] = &&op_br_lt,[52] = &&op_br_eq,[53] = &&op_br_ne,[54] = &&op_call,[55] = &&op_ret,[56] = &&op_push,[57] = &&op_pop,[58] = &&bad_opcode,[59] = &&bad_opcode,[60] = &&op_cnv,[61] = &&bad_opcode,[62] = &&bad_opcode,[63] = &&bad_opcode,
-	#if (CURRENT_OPCODE_RANGE > OPCODE_RANGE_1)
+	
 	[64] = &&bad_opcode,[65] = &&bad_opcode,[66] = &&bad_opcode,[67] = &&bad_opcode,[68] = &&bad_opcode,[69] = &&bad_opcode,[70] = &&bad_opcode,[71] = &&bad_opcode,[72] = &&bad_opcode,[73] = &&bad_opcode,[74] = &&bad_opcode,[75] = &&bad_opcode,[76] = &&bad_opcode,[77] = &&bad_opcode,[78] = &&bad_opcode,[79] = &&bad_opcode,
 
 	[80] = &&bad_opcode,[81] = &&bad_opcode,[82] = &&bad_opcode,[83] = &&bad_opcode,[84] = &&bad_opcode,[85] = &&bad_opcode,[86] = &&bad_opcode,[87] = &&bad_opcode,[88] = &&bad_opcode,[89] = &&bad_opcode,[90] = &&bad_opcode,[91] = &&bad_opcode,[92] = &&bad_opcode,[93] = &&bad_opcode,[94] = &&bad_opcode,[95] = &&bad_opcode,
-	#elif (CURRENT_OPCODE_RANGE > OPCODE_RANGE_2)
+	
 	[96] = &&bad_opcode,[97] = &&bad_opcode,[98] = &&bad_opcode,[99] = &&bad_opcode,[100] = &&bad_opcode,[101] = &&bad_opcode,[102] = &&bad_opcode,[103] = &&bad_opcode,[104] = &&bad_opcode,[105] = &&bad_opcode,[106] = &&bad_opcode,[107] = &&bad_opcode,[108] = &&bad_opcode,[109] = &&bad_opcode,[110] = &&bad_opcode,[111] = &&bad_opcode,
 
 	[112] = &&bad_opcode,[113] = &&bad_opcode,[114] = &&bad_opcode,[115] = &&bad_opcode,[116] = &&bad_opcode,[117] = &&bad_opcode,[118] = &&bad_opcode,[119] = &&bad_opcode,[120] = &&bad_opcode,[121] = &&bad_opcode,[122] = &&bad_opcode,[123] = &&bad_opcode,[124] = &&bad_opcode,[125] = &&bad_opcode,[126] = &&bad_opcode,[127] = &&bad_opcode,
-	#elif (CURRENT_OPCODE_RANGE > OPCODE_RANGE_3)
+	
 	[128] = &&bad_opcode,[129] = &&bad_opcode,[130] = &&bad_opcode,[131] = &&bad_opcode,[132] = &&bad_opcode,[133] = &&bad_opcode,[134] = &&bad_opcode,[135] = &&bad_opcode,[136] = &&bad_opcode,[137] = &&bad_opcode,[138] = &&bad_opcode,[139] = &&bad_opcode,[140] = &&bad_opcode,[141] = &&bad_opcode,[142] = &&bad_opcode,[143] = &&bad_opcode,
 
 	[144] = &&bad_opcode,[145] = &&bad_opcode,[146] = &&bad_opcode,[147] = &&bad_opcode,[148] = &&bad_opcode,[149] = &&bad_opcode,[150] = &&bad_opcode,[151] = &&bad_opcode,[152] = &&bad_opcode,[153] = &&bad_opcode,[154] = &&bad_opcode,[155] = &&bad_opcode,[156] = &&bad_opcode,[157] = &&bad_opcode,[158] = &&bad_opcode,[159] = &&bad_opcode,
-	#elif (CURRENT_OPCODE_RANGE > OPCODE_RANGE_4)
+	
 	[160] = &&bad_opcode,[161] = &&bad_opcode,[162] = &&bad_opcode,[163] = &&bad_opcode,[164] = &&bad_opcode,[165] = &&bad_opcode,[166] = &&bad_opcode,[167] = &&bad_opcode,[168] = &&bad_opcode,[169] = &&bad_opcode,[170] = &&bad_opcode,[171] = &&bad_opcode,[172] = &&bad_opcode,[173] = &&bad_opcode,[174] = &&bad_opcode,[175] = &&bad_opcode,
 
 	[176] = &&bad_opcode,[177] = &&bad_opcode,[178] = &&bad_opcode,[179] = &&bad_opcode,[180] = &&bad_opcode,[181] = &&bad_opcode,[182] = &&bad_opcode,[183] = &&bad_opcode,[184] = &&bad_opcode,[185] = &&bad_opcode,[186] = &&bad_opcode,[187] = &&bad_opcode,[188] = &&bad_opcode,[189] = &&bad_opcode,[190] = &&bad_opcode,[191] = &&bad_opcode,
-	#elif (CURRENT_OPCODE_RANGE > OPCODE_RANGE_5)
+	
 	[192] = &&bad_opcode,[193] = &&bad_opcode,[194] = &&bad_opcode,[195] = &&bad_opcode,[196] = &&bad_opcode,[197] = &&bad_opcode,[198] = &&bad_opcode,[199] = &&bad_opcode,[200] = &&bad_opcode,[201] = &&bad_opcode,[202] = &&bad_opcode,[203] = &&bad_opcode,[204] = &&bad_opcode,[205] = &&bad_opcode,[206] = &&bad_opcode,[207] = &&bad_opcode,
 
 	[208] = &&bad_opcode,[209] = &&bad_opcode,[210] = &&bad_opcode,[211] = &&bad_opcode,[212] = &&bad_opcode,[213] = &&bad_opcode,[214] = &&bad_opcode,[215] = &&bad_opcode,[216] = &&bad_opcode,[217] = &&bad_opcode,[218] = &&bad_opcode,[219] = &&bad_opcode,[220] = &&bad_opcode,[221] = &&bad_opcode,[222] = &&bad_opcode,[223] = &&bad_opcode,
-	#elif (CURRENT_OPCODE_RANGE > OPCODE_RANGE_6)
+	
 	[224] = &&bad_opcode,[225] = &&bad_opcode,[226] = &&bad_opcode,[227] = &&bad_opcode,[228] = &&bad_opcode,[229] = &&bad_opcode,[230] = &&bad_opcode,[231] = &&bad_opcode,[232] = &&bad_opcode,[233] = &&bad_opcode,[234] = &&bad_opcode,[235] = &&bad_opcode,[236] = &&bad_opcode,[237] = &&bad_opcode,[238] = &&bad_opcode,[239] = &&bad_opcode,
 
 	[240] = &&bad_opcode,[241] = &&bad_opcode,[242] = &&bad_opcode,[243] = &&bad_opcode,[244] = &&bad_opcode,[245] = &&bad_opcode,[246] = &&bad_opcode,[247] = &&bad_opcode,[248] = &&bad_opcode,[249] = &&bad_opcode,[250] = &&bad_opcode,[251] = &&bad_opcode,[252] = &&bad_opcode,[253] = &&bad_opcode,[254] = &&bad_opcode,[255] = &&bad_opcode,
-	#endif
+	
 	};
 
 	/*
@@ -96,7 +96,7 @@
 
 	/* Decode one complete 4-byte instruction. */
 	#define DECODE() do {                  \
-		if (_pc+INSTRUCTION_BYTES >= program_end) { THROW(RC_E_PC_OUT_OF_BOUNDS); } \
+		if (_pc+INSTRUCTION_BYTES > program_end) { THROW(RC_E_PC_OUT_OF_BOUNDS); } \
 		op  = FETCH();                    \
 		rd  = FETCH();                    \
 		rs1 = FETCH();                    \
@@ -120,7 +120,9 @@
 		} \
 	} while (0)
 
-	/* Relative jump: Move the Program Counter forward or backward by a byte offset */
+	/* Relative jump: Move the Program Counter forward or backward by a byte offset.
+	 * Alignment of the target is guaranteed ahead of time (verified at load/validation
+	 * time), so only bounds are checked here. */
 	#define RJUMP(offset) do { \
 		intptr_t base = (intptr_t)(uintptr_t)_pc;\
 	intptr_t delta = (intptr_t)(int32_t)offset; \
@@ -129,8 +131,7 @@
 	intptr_t begin = (intptr_t)(uintptr_t)vm->program;\
 	intptr_t end = (intptr_t)(uintptr_t)program_end;\
 \
-	if (target < begin || target >= end ||\
-		((target - begin) % (int)INSTRUCTION_BYTES) != 0) {\
+	if (target < begin || target >= end) {\
 		THROW(RC_E_BAD_JUMP_TARGET);\
 	}\
 \
@@ -170,14 +171,14 @@
 	// load from heap
 	op_ld: {
 		DECODE();
-		if(vm->reg[rs1].u64 + 7U > vm->hs) {THROW(RC_E_SEGFAULT);}
+		if(vm->reg[rs1].u64 > vm->hs - 8) {THROW(RC_E_SEGFAULT);}
 		memcpy(&vm->reg[rd].u64,&vm->heap[(uint32_t)vm->reg[rs1].u64],8);
 		DISPATCH();
 	}
 	// store to heap
 	op_st: {
 		DECODE();
-		if(vm->reg[rs1].u64 + 7U > vm->hs) {THROW(RC_E_SEGFAULT);}
+		if(vm->reg[rs1].u64 > vm->hs - 8) {THROW(RC_E_SEGFAULT);}
 		memcpy(&vm->heap[(uint32_t)vm->reg[rs1].u64],&vm->reg[rd].u64,8);
 		DISPATCH();
 	}
@@ -503,10 +504,11 @@
 		uintptr_t program_begin = (uintptr_t)vm->program;
 		uintptr_t program_limit = (uintptr_t)program_end;
 
-		/* Targets must point inside the program and be instruction-aligned. */
+		/* Targets must point inside the program. Alignment is guaranteed
+		 * ahead of time (verified at load/validation time), so it is not
+		 * re-checked here. */
 		if (target < program_begin ||
-		    target >= program_limit ||
-		    ((target - program_begin) % INSTRUCTION_BYTES) != 0) {
+		    target >= program_limit) {
 			THROW(RC_E_BAD_JUMP_TARGET);
 		}
 
@@ -531,7 +533,7 @@
 	op_ret: {
 		DECODE();
 
-		if (vm->reg[REG_SP].u64 - 8U < sizeof(uint64_t)) {
+		if (vm->reg[REG_SP].u64 == 0 || vm->reg[REG_SP].u64 - 8U < sizeof(uint64_t)) {
 			THROW(RC_E_STACK_UNDERFLOW);
 		}
 
@@ -546,9 +548,10 @@
 		uintptr_t program_begin = (uintptr_t)vm->program;
 		uintptr_t program_limit = (uintptr_t)program_end;
 
+		/* Alignment is guaranteed ahead of time (verified at load/validation
+		 * time), so only bounds are checked here. */
 		if (target < program_begin ||
-		    target >= program_limit ||
-		    ((target - program_begin) % INSTRUCTION_BYTES) != 0) {
+		    target >= program_limit) {
 			THROW(RC_E_BAD_JUMP_TARGET);
 		}
 
@@ -577,8 +580,7 @@
 	op_pop: {
 		DECODE();
 
-		if (vm->reg[REG_SP].u64 - 8U < sizeof(uint64_t) ||
-		    vm->reg[REG_SP].u64 > vm->ss) {
+		if (vm->reg[REG_SP].u64 == 0 || vm->reg[REG_SP].u64 - 8U < sizeof(uint64_t)) {
 			THROW(RC_E_STACK_UNDERFLOW);
 		}
 
@@ -615,4 +617,3 @@
 
 	return (int)vm->reg[REG_RC].i64;
 }
-

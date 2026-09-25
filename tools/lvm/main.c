@@ -173,13 +173,13 @@ int main(int argc, char** argv)
 
 	/* Load program */
 	if (!load_lbf_file(&file, argv[1])) {
-		goto cleanup;
+		return 1;
 	}
 
 
 	/* Setup VM instance */
 	if (!setup_instance(&instance, &file)) {
-		goto cleanup;
+		return 1;
 	}
 
 
@@ -200,7 +200,6 @@ int main(int argc, char** argv)
 	 * Cleanup
 	 * ===================================================================== */
 
-cleanup:
 	destroy_instance(&instance);
 	free_lbf_file(&file);
 

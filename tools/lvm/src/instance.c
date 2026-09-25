@@ -64,6 +64,7 @@ bool setup_instance(lvm_instance_t *instance, lbf_file *file) {
 		if(instance->stack == nullptr) {
 			free_lbf_file(file);
 			free(instance->heap);
+			instance->heap = nullptr;
 			return false;
 		}
 

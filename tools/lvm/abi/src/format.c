@@ -24,7 +24,15 @@ static inline bool validate_header(lbf_header header) {
 
 	if(header.heap_size < MIN_HEAP_SIZE || header.heap_size > MAX_HEAP_SIZE) {return false;}
 	if(header.ic < MIN_INSTRUCTIONS || header.ic > MAX_INSTRUCTIONS) {return false;}
-	if(header.ds > MAX_DATA_SIZE) {return false;} else if((header.ds % 8) != 0) {return false;}
+
+	if(header.ds > MAX_DATA_SIZE) {return false;}
+
+	/* Check alignment here to avoid it runtime to make it faster & optimized.  */
+	if((header.heap_size % 8) != 0) {return false;}
+	if((header.ds > 0) && ((header.ds % 8) != 0)) {return false;}
+	if((header.ss % 8) != 0) {return false;}
+	// header.ic not checked because it is multiplied to get program size, so misalignment is mathematically impossible.
+
 
 	if(header.entry >= header.ic) {return false;}
 	uint64_t size = header.ds + (header.ic*INSTRUCTION_BYTES);
@@ -37,8 +45,8 @@ bool validate_lbf_file(lbf_file f) {
 	if(!validate_header(f.header)) {return false;}
 	// program & data check
 	if(f.program == nullptr) {return false;}
-	if( f.header.ds >= MAX_DATA_SIZE) {return false;}
-	else {if(f.rodata == nullptr) {return false;}}
+	if(f.header.ds >= MAX_DATA_SIZE) {return false;}
+	if(f.header.ds > 0 && f.rodata == nullptr) {return false;}
 	return true;
 }
 
