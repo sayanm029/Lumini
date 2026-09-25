@@ -1,8 +1,10 @@
+# General Makefile
+# Used for building lvm & testing
 CC = gcc
-BUILD_DIR = build
 BIN_DIR = bin
-OUT = $(BIN_DIR)/lvm
-
+BUILD_DIR = build
+TEST_DIR = test
+OUT = $(BUILD_DIR)/lvm
 
 STD = -std=gnu23
 WARN = -Wall -Wextra -Werror \
@@ -18,7 +20,6 @@ OPT_NORMAL = -O2 -g -MMD -MP
 OPT_MAX = -O3 -s -flto -MMD -MP
 
 # --- AUTOMATIC MODE SELECTION ---
-# Default to normal. If typed 'make mode=release', it automatically upgrades.
 mode ?= normal
 
 ifeq ($(mode), release)
@@ -37,19 +38,28 @@ else ifeq ($(TARGET), ARM)
     ARCH = -march=armv8-a
 endif
 
-
-
 # Combine flags cleanly
 CFLAGS = $(STD) $(ARCH) $(WARN) $(INCLUDE) $(OPT) $(LTO_FLAG)
 LDFLAGS = -lm $(LTO_FLAG)
 
-SRCS = $(wildcard src/*.c) $(wildcard *.c) $(wildcard abi/src/*.c)
-OBJS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
+# Source and Object discovery
+SRCS = $(wildcard src/*.c) $(wildcard abi/src/*.c)
+MAIN_SRC = $(wildcard *.c) # Isolates main.c if present at root
+
+# Core objects (everything EXCEPT the root main file, if you have one, to avoid double main symbols in tests)
+CORE_SRCS = $(SRCS)
+OBJS = $(patsubst %.c, $(BIN_DIR)/%.o, $(CORE_SRCS) $(MAIN_SRC))
+CORE_OBJS = $(patsubst %.c, $(BIN_DIR)/%.o, $(CORE_SRCS))
+
 DEPS = $(OBJS:.o=.d)
+
+# Test Suite configuration
+TEST_SRCS := $(wildcard $(TEST_DIR)/*.c)
+TEST_BINS := $(patsubst $(TEST_DIR)/%.c, $(BIN_DIR)/$(TEST_DIR)/%, $(TEST_SRCS))
 
 # --- Rules ---
 
-.PHONY: all release clean
+.PHONY: all release clean test
 
 # 1. DAILY WORKFLOW (Default): Fast compiling + debugging mode
 all: $(OUT)
@@ -59,19 +69,38 @@ release:
 	@$(MAKE) mode=release clean
 	@$(MAKE) mode=release $(OUT)
 
-# Linking step
+# Linking core executable
 $(OUT): $(OBJS)
-	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
-# Compilation step (creates matching subdirectories inside build/)
-$(BUILD_DIR)/%.o: %.c
+# Compilation step for source files
+$(BIN_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# --- Test Suite Rules ---
+
+# Compiles test binaries cleanly inside bin/test/ linked against core object files
+$(BIN_DIR)/$(TEST_DIR)/%: $(TEST_DIR)/%.c $(CORE_OBJS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $< $(CORE_OBJS) -o $@ $(LDFLAGS)
+
+# Main test runner execution target
+test: $(TEST_BINS)
+	@echo "-----------------------------------"
+	@echo "Running Test Suite..."
+	@echo "-----------------------------------"
+	@for bin in $(TEST_BINS); do \
+		echo "Executing $$bin..."; \
+		./$$bin || exit 1; \
+		printf "\n------------- Passed. ----------------------\n"; \
+	done
+	@echo "All tests executed successfully."
+
 # Safe cleanup
 clean:
-	rm -rf $(BUILD_DIR) $(BIN_DIR)
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
 
 # Include auto-generated dependency rules safely
 -include $(DEPS)
